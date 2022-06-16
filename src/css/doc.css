@@ -6,6 +6,9 @@
   margin: var(--doc-margin);
   max-width: var(--doc-max-width);
   padding: 0 1rem 4rem;
+}
+
+.doc.expand-max {
   max-width: none;
 }
 
@@ -18,6 +21,9 @@
     min-width: 0; /* min-width: 0 required for flexbox to constrain overflowing elements */
     position: relative;
     z-index: var(--z-index-doc);
+  }
+
+  .doc.expand-max {
     max-width: none;
   }
 }
