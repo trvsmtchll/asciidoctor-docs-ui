@@ -11,11 +11,11 @@
 /* add right sidebar button */
 .sidebar-toggle {
   position: fixed;
-  top: 135px;
+  top: 178px;
   right: 0;
-  background-color: #dbdada;
-  width: 20px;
-  height: 30px;
+  background-color: #e24402;
+  width: 25px;
+  height: 40px;
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
   cursor: pointer;

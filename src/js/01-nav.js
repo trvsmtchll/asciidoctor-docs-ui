@@ -7,10 +7,19 @@
   var navToggle = document.querySelector('.toolbar .nav-toggle')
   var sidebarNav = document.querySelector('.toc.sidebar')
   var sidebarToggle = document.querySelector('.sidebar-toggle')
+  // var navPanelMenu = document.querySelector('.nav-panel-menu')
+  // var navPanelMenuBtn = document.querySelector('.nav-panel-menu-btn')
+  // var versionMenuToggle = document.querySelectorAll('.version')
+  // versionMenuToggle.forEach((elem) => {
+  //   elem.addEventListener('click', () => {
+  //     elem.parentNode.nextElementSibling.classList.toggle('is-active')
+  //   })
+  // })
 
   navToggle.addEventListener('click', showNav)
   navContainer.addEventListener('click', trapEvent)
   sidebarToggle.addEventListener('click', showSidebar)
+  // navPanelMenuBtn.addEventListener('click', showNavPanelMenu)
 
   var nav = navContainer.querySelector('.nav')
   var menuPanel = nav.querySelector('[data-panel=menu]')
@@ -63,12 +72,12 @@
     }
   })
 
-  nav.querySelector('[data-panel=explore] .context').addEventListener('click', function () {
-    find(nav, '[data-panel]').forEach(function (panel) {
-      // NOTE logic assumes there are only two panels
-      panel.classList.toggle('is-active')
-    })
-  })
+  // nav.querySelector('[data-panel=explore] .context').addEventListener('click', function () {
+  //   find(nav, '[data-panel]').forEach(function (panel) {
+  //     // NOTE logic assumes there are only two panels
+  //     panel.classList.toggle('is-active')
+  //   })
+  // })
 
   // NOTE prevent text from being selected by double click
   menuPanel.addEventListener('mousedown', function (e) {
@@ -136,6 +145,10 @@
   function showSidebar (e) {
     sidebarNav.classList.toggle('is-hide')
   }
+
+  // function showNavPanelMenu (e) {
+  //   navPanelMenu.classList.toggle('is-hide')
+  // }
 
   function trapEvent (e) {
     e.stopPropagation()

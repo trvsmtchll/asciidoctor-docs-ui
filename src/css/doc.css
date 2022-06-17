@@ -8,6 +8,10 @@
   padding: 0 1rem 4rem;
 }
 
+.doc.expand-max {
+  max-width: none;
+}
+
 @media screen and (min-width: 1024px) {
   .doc {
     flex: auto;
@@ -17,6 +21,10 @@
     min-width: 0; /* min-width: 0 required for flexbox to constrain overflowing elements */
     position: relative;
     z-index: var(--z-index-doc);
+  }
+
+  .doc.expand-max {
+    max-width: none;
   }
 }
 
