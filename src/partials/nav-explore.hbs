@@ -1,74 +1,46 @@
 <div class="nav-panel-explore{{#unless page.navigation}} is-active{{/unless}}" data-panel="explore">
   {{#if page.component}}
   <div class="context">
-    <span class="title">{{page.component.title}}</span>
-    <span class="version">{{#unless (eq page.componentVersion.displayVersion 'default')}}{{page.componentVersion.displayVersion}}{{/unless}}</span>
+    <span class="title">Aviatrix Documentation</span>
+    {{!-- <span class="version">{{page.componentVersion.displayVersion}}</span> --}}
   </div>
   {{/if}}
   <ul class="components">
-    {{#each (rearrange site.components 'name' componentOrder)}}
+    {{#each site.components}}
     <li class="component{{#if (eq this @root.page.component)}} is-current{{/if}}">
-    {{!-- <div class="component-row"> --}}
-      <a class="title" href="{{{relativize ./url}}}">{{{./title}}}</a>
-      {{#if (or ./versions.[1] (ne ./versions.[0].displayVersion 'default'))}}
-      <ul class="versions">
-        {{#each ./versions}}
-        <li class="version
-          {{~#if (and (eq .. @root.page.component) (eq this @root.page.componentVersion))}} is-current{{/if~}}
-          {{~#if (eq this ../latest)}} is-latest{{/if}}">
-          <a href="{{{relativize ./url}}}">{{./displayVersion}}</a>
-        </li>
-        {{/each}}
-      </ul>
-      {{!-- </div> --}}
+      {{!-- wrap title,versions and expand-arrow to one row --}}
+      <div class="component-nav">
+        <a class="title current-page-expand-collapse-toggle {{#if (eq ./name @root.page.component.name)}}is-direct-expand{{/if}}" href="{{{relativize ./url}}}?expand=true">{{{./title}}}</a>
+        {{!-- <div class="versions">
+          {{#each ./versions}}
+          <div class="version
+            {{~#if (and (eq .. @root.page.component) (eq this @root.page.componentVersion))}} is-current{{/if~}}
+            {{~#if (eq this ../latest)}} is-latest{{/if}}">
+            <a href="{{{relativize ./url}}}">{{./displayVersion}}</a>
+          </div>
+          {{/each}}
+        </div> --}}
+        {{!-- Toggle expand/collapse page --}}
+        <a href="{{{relativize ./url}}}?expand=true"
+          class="current-page-toggle current-page-expand-collapse-toggle {{#if (eq ./name @root.page.component.name)}}is-direct-expand{{/if}}"
+        ></a>
+        {{!-- Toggle expand/collapse page --}}
+      </div>
+      {{!-- wrap title,versions and expand-arrow to one row --}}
       {{!-- page --}}
       {{#if (eq ./name @root.page.component.name)}}
-      {{#with ../page.navigation}}
-      <div class="nav-panel-menu is-active is-loading" data-panel="menu">
+      {{#with @root.page.navigation}}
+      <div class="nav-panel-menu is-active is-hide" data-panel="menu">
         <nav class="nav-menu">
-          <button class="nav-menu-toggle" title="Toggle expand/collapse all"></button>
           {{!-- {{#with @root.page.componentVersion}}
           <h3 class="title"><a href="{{{relativize ./url}}}">{{./title}}</a></h3>
           {{/with}} --}}
       {{> nav-tree navigation=this}}
         </nav>
-        <script>
-      {{! the logic to trace current path and scroll to item for current page copied from js/01-nav.js}}
-      ;(function () {
-        var panel = document.querySelector('.nav-panel-menu')
-        var page
-        var hash = window.location.hash
-        if (hash) {
-          if (~hash.indexOf('%')) hash = decodeURIComponent(hash)
-          if (~hash.indexOf('"')) hash = hash.replace(/(?=")/g, '\\')
-          var link = panel.querySelector('.nav-link[href="' + hash + '"]')
-          if (link) page = link.parentNode
-          else if ((page = panel.querySelector('.is-current-url'))) page.classList.add('is-provisional')
-        } else {
-          page = panel.querySelector('.is-current-url')
-        }
-        if (page) {
-          var ancestor = page
-          while ((ancestor = ancestor.parentNode) && ancestor !== panel) {
-            if (ancestor.className === 'nav-item') ancestor.classList.add('is-current-path', 'is-active')
-          }
-          page.classList.add('is-current-page', 'is-active')
-          if (panel.scrollHeight > panel.clientHeight) {
-            var panelRect = panel.getBoundingClientRect()
-            var linkRect = page.querySelector('.nav-link').getBoundingClientRect()
-            panel.scrollTop += Math.round(linkRect.top - panelRect.top - (panelRect.height - linkRect.height) * 0.5)
-          }
-        } else {
-          panel.scrollTop = 0
-        }
-        panel.classList.remove('is-loading')
-      })()
-        </script>
       </div>
       {{/with}}
       {{/if}}
       {{!-- page --}}
-      {{/if}}
     </li>
     {{/each}}
   </ul>
