@@ -127,7 +127,7 @@ html.is-clipped--nav {
 }
 
 .nav-item-toggle {
-    background: transparent url(../img/caret.svg) no-repeat;
+    background: transparent url(../img/caret.svg) no-repeat center / 50%;
     border: none;
     outline: none;
     line-height: inherit;
